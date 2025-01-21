@@ -23,15 +23,15 @@ const registerUserIntoDB = async (payload: TUser) => {
 const userLogIn = async (payload: TLoginUser) => {
   const isUserExists = await User.UserExistenceCheckingByEmail(payload.email);
   if (!isUserExists) {
-    throw new AppError(httpStatus.FORBIDDEN, 'This User is not Found');
+    throw new AppError(httpStatus.FORBIDDEN, 'Invalid credentials');
   }
   if (isUserExists?.isBlocked) {
-    throw new AppError(httpStatus.FORBIDDEN, 'This User is Blocked');
+    throw new AppError(httpStatus.FORBIDDEN, 'Invalid credentials');
   }
   if (
     !(await User.isPasswordMatched(payload.password, isUserExists.password))
   ) {
-    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
+    throw new AppError(httpStatus.FORBIDDEN, 'Invalid credentials');
   }
 
   const jwtPayload = {
@@ -51,8 +51,8 @@ const userLogIn = async (payload: TLoginUser) => {
     config.jwt_refresh_expires_in as string,
   );
   return {
-    accessToken: accessToken,
-    refreshToken: refreshToken,
+    accessToken,
+    refreshToken,
   };
 };
 
