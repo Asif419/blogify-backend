@@ -1,4 +1,4 @@
-import { TGenericErrorResponse } from '../interface/error';
+import { TErrorSources, TGenericErrorResponse } from '../interface/error';
 import httpStatus from 'http-status';
 
 const handleDuplicateError = (err: any): TGenericErrorResponse => {
@@ -6,13 +6,22 @@ const handleDuplicateError = (err: any): TGenericErrorResponse => {
 
   const extractedMessage = match && match[1];
 
+  const error: TErrorSources = [
+    {
+      path: '',
+      message: `${extractedMessage} is already exists`,
+    },
+  ];
   const statusCode = httpStatus.BAD_REQUEST;
 
   return {
     success: false,
     message: 'Invalid ID',
     statusCode,
-    error: `${extractedMessage} is already exists`,
+    error,
     stack: err?.stack,
   };
 };
+
+
+export default handleDuplicateError;

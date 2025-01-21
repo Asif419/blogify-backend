@@ -1,19 +1,19 @@
 import mongoose from 'mongoose';
-import { TGenericErrorResponse } from '../interface/error';
+import { TErrorSources, TGenericErrorResponse } from '../interface/error';
 import httpStatus from 'http-status';
 
 const handleValidationError = (
   err: mongoose.Error.ValidationError,
 ): TGenericErrorResponse => {
-    
   const statusCode = httpStatus.BAD_REQUEST;
-  const error: string = Object.values(err.errors)
-    .map(
-      (val: mongoose.Error.ValidatorError | mongoose.Error.CastError) =>
-        val?.message,
-    )
-    .join(', ');
-
+  const error: TErrorSources = Object.values(err.errors).map(
+    (val: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
+      return {
+        path: val?.path,
+        message: val?.message,
+      };
+    },
+  );
   return {
     success: false,
     message: 'Invalid ID',
