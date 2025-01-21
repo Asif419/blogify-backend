@@ -4,7 +4,7 @@ import validateRequest from '../../middlewares/validateRequest';
 
 const router = express.Router();
 
-router.post(
-  '/create-user',
-  validateRequest(userValidation.createUserValidationSchema),
-);
+// router.post(
+//   '/create-user',
+//   validateRequest(userValidation.createUserValidationSchema),
+// );
