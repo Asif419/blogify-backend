@@ -16,7 +16,7 @@ const handleValidationError = (
   );
   return {
     success: false,
-    message: 'Invalid ID',
+    message: 'Validation Error',
     statusCode,
     error,
     stack: err?.stack,

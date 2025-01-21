@@ -17,6 +17,7 @@ const globalErrorHandlers: ErrorRequestHandler = (err, req, res, next) => {
       message: 'Something went wrong',
     },
   ];
+  let stack: string | null | undefined = '';
 
   if (err instanceof ZodError) {
     const simplifiedError = handleZodError(err);
@@ -28,6 +29,7 @@ const globalErrorHandlers: ErrorRequestHandler = (err, req, res, next) => {
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     error = simplifiedError?.error;
+    stack = simplifiedError?.stack ? simplifiedError?.stack : null;
   } else if (err?.name === 'CastError') {
     const simplifiedError = handleCastError(err);
     statusCode = simplifiedError?.statusCode;
@@ -38,6 +40,7 @@ const globalErrorHandlers: ErrorRequestHandler = (err, req, res, next) => {
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     error = simplifiedError?.error;
+    stack = simplifiedError?.stack ? simplifiedError?.stack : null;
   } else if (err instanceof AppError) {
     statusCode = err?.statusCode;
     message = err?.message;
@@ -47,6 +50,7 @@ const globalErrorHandlers: ErrorRequestHandler = (err, req, res, next) => {
         message: err?.message,
       },
     ];
+    stack = err?.stack;
   } else if (err instanceof Error) {
     message = err?.message;
     error = [
@@ -55,7 +59,16 @@ const globalErrorHandlers: ErrorRequestHandler = (err, req, res, next) => {
         message: err?.message,
       },
     ];
+    stack = err?.stack;
   }
+
+  res.status(statusCode).json({
+    success: false,
+    message,
+    statusCode,
+    error,
+    stack: stack,
+  });
 };
 
 export default globalErrorHandlers;
