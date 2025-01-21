@@ -1,4 +1,5 @@
-import { Model } from "mongoose";
+/* eslint-disable @typescript-eslint/no-wrapper-object-types */
+import { Model } from 'mongoose';
 
 export interface TUser {
   name: string;
@@ -9,5 +10,9 @@ export interface TUser {
 }
 
 export interface UserModel extends Model<TUser> {
-  UserExistenceCheckingByEmail(email: string): Promise<string>;
+  UserExistenceCheckingByEmail(email: string): Promise<TUser>;
+  isPasswordMatched(
+    plainTextPassword: string,
+    hashedPassword: string,
+  ): Promise<Boolean>;
 }
