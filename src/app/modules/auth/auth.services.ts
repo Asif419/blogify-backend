@@ -11,7 +11,7 @@ const registerUserIntoDB = async (payload: TUser) => {
   const email = userData.email as string;
   const password = userData.password;
 
-  const isUserExists = await User.UserExistenceCheckingByEmail(email);
+  const isUserExists = await User.userExistenceCheckingByEmail(email);
   if (isUserExists) {
     throw new AppError(httpStatus.FORBIDDEN, 'Already have an account');
   }
@@ -21,7 +21,7 @@ const registerUserIntoDB = async (payload: TUser) => {
 };
 
 const userLogIn = async (payload: TLoginUser) => {
-  const isUserExists = await User.UserExistenceCheckingByEmail(payload.email);
+  const isUserExists = await User.userExistenceCheckingByEmail(payload.email);
   if (!isUserExists) {
     throw new AppError(httpStatus.FORBIDDEN, 'Invalid credentials');
   }

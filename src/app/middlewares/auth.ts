@@ -8,6 +8,8 @@ import { User } from '../modules/user/user.model';
 
 const auth = (...requiredRules: TUserRole[]) => {
   return catchAsync(async (req, res, next) => {
+
+    // if token not given
     const token = req.headers.authorization;
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
@@ -20,16 +22,19 @@ const auth = (...requiredRules: TUserRole[]) => {
 
     const { userEmail, userRole } = decodedToken;
 
-    const isUserExists = await User.UserExistenceCheckingByEmail(userEmail);
+    // if user doesn't exist
+    const isUserExists = await User.userExistenceCheckingByEmail(userEmail);
     if (!isUserExists) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'The user is not found');
     }
 
+    // if user blocked
     const userBlockedStatus = isUserExists.isBlocked;
     if (userBlockedStatus) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'This user is blocked');
     }
 
+    // if user is not holding particular role
     const userRoleInDB = isUserExists.role;
     if (requiredRules && !requiredRules.includes(userRoleInDB)) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
