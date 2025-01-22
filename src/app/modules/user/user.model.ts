@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 import { TUser, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';

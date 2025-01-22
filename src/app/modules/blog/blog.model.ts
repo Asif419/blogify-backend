@@ -4,14 +4,13 @@ import { TBlog } from './blog.interface';
 const blogSchema = new Schema<TBlog>(
   {
     title: { type: String, required: true },
-    content: { type: String, required: true, unique: true },
+    content: { type: String, required: true },
+    isPublished: { type: Boolean, default: true },
     author: {
       type: Schema.Types.ObjectId,
-      required: true,
-      unique: true,
+      required: [true, 'User ID is required'],
       ref: 'User',
     },
-    isPublished: { type: Boolean, default: true },
   },
   {
     timestamps: true,
