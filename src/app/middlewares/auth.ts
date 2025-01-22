@@ -8,7 +8,6 @@ import { User } from '../modules/user/user.model';
 
 const auth = (...requiredRules: TUserRole[]) => {
   return catchAsync(async (req, res, next) => {
-
     // if token not given
     const token = req.headers.authorization;
     if (!token) {

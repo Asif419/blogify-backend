@@ -7,6 +7,8 @@ import { Types } from 'mongoose';
 import { title } from 'process';
 import AppError from '../../error/AppError';
 import httpStatus from 'http-status';
+import QueryBuilder from '../../builder/QueryBuilder';
+import { blogsSearchableFields } from './blog.constant';
 
 const createBlogIntoDB = async (payload: TBlog, jwtPayload: JwtPayload) => {
   const userInformation = await User.userExistenceCheckingByEmail(
@@ -50,14 +52,36 @@ const updateBlogIntoDB = async (payload: Partial<TBlog>, id: string) => {
 };
 
 const deleteBlogFromDB = async (id: string) => {
+  const result = await Blog.deleteOne({ _id: id });
+  if (result.deletedCount <= 0) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Not Able to delete the blog');
+  }
 
-  // const result = await Blog.deleteOne({ _id: id });
-  // console.log(result);
-  return null;
+  return result;
+};
+
+const getAllBlogsFromDB = async (query: Record<string, unknown>) => {
+  const blogsQuery = new QueryBuilder(
+    Blog.find().populate({
+      path: 'author',
+      select: 'name email',
+    }),
+    query,
+  )
+    .search(blogsSearchableFields)
+    .filter()
+    .sortBy()
+    .paginate()
+    .fields();
+
+  const result = await blogsQuery.modelQuery;
+  console.log(result);
+  return result;
 };
 
 export const blogServer = {
   createBlogIntoDB,
   updateBlogIntoDB,
   deleteBlogFromDB,
+  getAllBlogsFromDB,
 };
