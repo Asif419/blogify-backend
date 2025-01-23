@@ -16,7 +16,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"rupkotha\",\r\n    \"email\": \"rupkotha@gmail.com\",\r\n    \"password\": \"1234rupkotha\"\r\n}",
+              "raw": "{\r\n    \"name\": \"{{user_name}}\",\r\n    \"email\": \"{{user_email}}\",\r\n    \"password\": \"{{user_password}}\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -38,7 +38,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"rupkotha@gmail.com\",\r\n    \"password\": \"1234rupkotha\"\r\n}",
+              "raw": "{\r\n    \"email\": \"{{user_email}}\",\r\n    \"password\": \"{{user_password}}\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -65,13 +65,13 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJhc2lmQGdtYWlsLmNvbSIsInVzZXJSb2xlIjoidXNlciIsImlhdCI6MTczNzU3OTQ5MywiZXhwIjoxNzM3NjE1NDkzfQ.EZQI_nWzeEEm035lfSjcbLMMz1i_RtyxDI0Hz_aCIdo",
+                "value": "{{auth_token}}",
                 "type": "text"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"asif1\",\r\n    \"content\": \"asif1\"\r\n}",
+              "raw": "{\r\n    \"title\": \"{{blog_title}}\",\r\n    \"content\": \"{{blog_content}}\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -86,19 +86,19 @@
           "response": []
         },
         {
-          "name": "Update blog",
+          "name": "Update Blog",
           "request": {
             "method": "PATCH",
             "header": [
               {
                 "key": "Authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJydXBrb3RoYUBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InVzZXIiLCJpYXQiOjE3Mzc1Nzk4MjcsImV4cCI6MTczNzYxNTgyN30.gFVISNN8wM5Xye4ejIVXcmibbfGG7SS6dimGzOUNETM",
+                "value": "{{auth_token}}",
                 "type": "text"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"rup\",\r\n    \"content\": \"rup\"\r\n}",
+              "raw": "{\r\n    \"title\": \"{{blog_title}}\",\r\n    \"content\": \"{{blog_content}}\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -106,9 +106,9 @@
               }
             },
             "url": {
-              "raw": "{{blogify-local-url}}blogs/67915bb28bed68b6a07c4513",
+              "raw": "{{blogify-local-url}}blogs/{{blog_id}}",
               "host": ["{{blogify-local-url}}blogs"],
-              "path": ["67915bb28bed68b6a07c4513"]
+              "path": ["{{blog_id}}"]
             }
           },
           "response": []
@@ -120,23 +120,14 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJydXBrb3RoYUBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InVzZXIiLCJpYXQiOjE3Mzc1Nzk4MjcsImV4cCI6MTczNzYxNTgyN30.gFVISNN8wM5Xye4ejIVXcmibbfGG7SS6dimGzOUNETM",
+                "value": "{{auth_token}}",
                 "type": "text"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
-              "raw": "{{blogify-local-url}}blogs/67915c0f8bed68b6a07c4532",
+              "raw": "{{blogify-local-url}}blogs/{{blog_id}}",
               "host": ["{{blogify-local-url}}blogs"],
-              "path": ["67915c0f8bed68b6a07c4532"]
+              "path": ["{{blog_id}}"]
             }
           },
           "response": []
@@ -151,21 +142,12 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJydXBrb3RoYUBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InVzZXIiLCJpYXQiOjE3Mzc1Mzc0MjYsImV4cCI6MTczNzU3MzQyNn0.tH-664paSoXqElnuj4NgxIN_KjpYyCO5OiQizQVpBc0",
+                "value": "{{auth_token}}",
                 "type": "text"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
-              "raw": "{{blogify-local-url}}blogs?sortOrder=desc&search=asif&filter=67915b628bed68b6a07c4508",
+              "raw": "{{blogify-local-url}}blogs?sortOrder=desc&search={{search_term}}&filter={{blog_id}}",
               "host": ["{{blogify-local-url}}blogs"],
               "query": [
                 {
@@ -173,17 +155,12 @@
                   "value": "desc"
                 },
                 {
-                  "key": "sort",
-                  "value": "createdAt",
-                  "disabled": true
-                },
-                {
                   "key": "search",
-                  "value": "asif"
+                  "value": "{{search_term}}"
                 },
                 {
                   "key": "filter",
-                  "value": "67915b628bed68b6a07c4508"
+                  "value": "{{blog_id}}"
                 }
               ]
             }
@@ -196,57 +173,39 @@
       "name": "Admin",
       "item": [
         {
-          "name": "Block user",
+          "name": "Block User",
           "request": {
             "method": "PATCH",
             "header": [
               {
                 "key": "Authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InVzZXIiLCJpYXQiOjE3Mzc1NzM1OTUsImV4cCI6MTczNzYwOTU5NX0.e9s7QRHi4g5ZZtaCAUVVPIDyrgRnx8fbj84pzKvni5U",
+                "value": "{{auth_token}}",
                 "type": "text"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
-              "raw": "{{blogify-local-url}}/admin/users/67915b628bed68b6a07c4508/unblock",
+              "raw": "{{blogify-local-url}}/admin/users/{{user_id}}/unblock",
               "host": ["{{blogify-local-url}}"],
-              "path": ["admin", "users", "67915b628bed68b6a07c4508", "unblock"]
+              "path": ["admin", "users", "{{user_id}}", "unblock"]
             }
           },
           "response": []
         },
         {
-          "name": "Delete Blog",
+          "name": "Delete Blog (Admin)",
           "request": {
             "method": "DELETE",
             "header": [
               {
                 "key": "Authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJ1c2VyUm9sZSI6InVzZXIiLCJpYXQiOjE3Mzc1ODk2MzYsImV4cCI6MTczNzYyNTYzNn0.FlbDhXPG_tsNReGWeOXNJJzVas3z46yFnu_dNOjS62Y",
+                "value": "{{auth_token}}",
                 "type": "text"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
-              "raw": "{{blogify-local-url}}admin/blogs/67915c0f8bed68b6a07c4532",
+              "raw": "{{blogify-local-url}}admin/blogs/{{blog_id}}",
               "host": ["{{blogify-local-url}}admin"],
-              "path": ["blogs", "67915c0f8bed68b6a07c4532"]
+              "path": ["blogs", "{{blog_id}}"]
             }
           },
           "response": []
