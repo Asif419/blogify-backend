@@ -34,19 +34,29 @@ class QueryBuilder<T> {
         'fields',
       ];
       excludeFields.forEach((el) => delete queryObj[el]);
-      const author = {
+      const authorID = {
         author: queryObj.filter,
       };
 
-      this.modelQuery = this.modelQuery.find(author);
+      this.modelQuery = this.modelQuery.find(authorID);
     }
 
     return this;
   }
 
   sortBy() {
-    const sort =
-      (this?.query?.sort as string)?.split(',')?.join(' ') || '-createdAt';
+    const sortBy = (this?.query?.sortBy as string) || 'createdAt';
+    let sortOrder: string = '';
+    if (this?.query?.sortOrder === 'asc') {
+      sortOrder = '';
+    } else if (this?.query?.sortOrder === 'desc') {
+      sortOrder = '-';
+    }
+
+    const sort = `${sortOrder}${sortBy}`;
+
+    // const sort =
+    //   (this?.query?.sort as string)?.split(',')?.join(' ') || '-createdAt';
     this.modelQuery = this.modelQuery.sort(sort as string);
 
     return this;

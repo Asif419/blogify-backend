@@ -1,10 +1,8 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { TBlog } from './blog.interface';
 import { Blog } from './blog.model';
-import { TUser, TUserWithId } from '../user/user.interface';
 import { User } from '../user/user.model';
 import { Types } from 'mongoose';
-import { title } from 'process';
 import AppError from '../../error/AppError';
 import httpStatus from 'http-status';
 import QueryBuilder from '../../builder/QueryBuilder';
@@ -32,11 +30,6 @@ const createBlogIntoDB = async (payload: TBlog, jwtPayload: JwtPayload) => {
 };
 
 const updateBlogIntoDB = async (payload: Partial<TBlog>, id: string) => {
-  const isBlogExist = await Blog.isBlogExistsById(id);
-  if (!isBlogExist) {
-    throw new AppError(httpStatus.NOT_FOUND, 'The blog is not found');
-  }
-
   const result = await Blog.findByIdAndUpdate(
     { _id: id },
     { $set: payload },
@@ -75,7 +68,6 @@ const getAllBlogsFromDB = async (query: Record<string, unknown>) => {
     .fields();
 
   const result = await blogsQuery.modelQuery;
-  console.log(result);
   return result;
 };
 

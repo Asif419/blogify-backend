@@ -20,7 +20,7 @@ const updateBlog = catchAsync(async (req, res) => {
 
   sendResponse(res, {
     success: true,
-    message: 'Updated content',
+    message: 'Content updated',
     statusCode: httpStatus.OK,
     data: result,
   });

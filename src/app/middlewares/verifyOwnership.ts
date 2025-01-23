@@ -19,13 +19,14 @@ const verifyOwnershipOrRole = catchAsync(async (req, res, next) => {
     throw new AppError(
       httpStatus.FORBIDDEN,
       'Unauthorized: You are not the owner of this blog',
-    );
-  } else if (userDataFromDB.role !== 'admin') {
-    throw new AppError(
-      httpStatus.UNAUTHORIZED,
-      'Unauthorized: You are not able to delete this blog',
-    );
+    );  
   }
+  // else if (userDataFromDB.role !== 'admin') {
+  //   throw new AppError(
+  //     httpStatus.UNAUTHORIZED,
+  //     'Unauthorized: You are not able to delete this blog',
+  //   );
+  // }
 
   next();
 });

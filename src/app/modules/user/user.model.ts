@@ -33,6 +33,10 @@ userSchema.statics.userExistenceCheckingByEmail = async function (
   return await User.findOne({ email }).select('+password');
 };
 
+userSchema.statics.userExistenceCheckingByID = async function (id: string) {
+  return await User.findById(id).select('+password');
+};
+
 userSchema.statics.isPasswordMatched = async function (
   plainTextPassword: string,
   hashedPassword: string,
