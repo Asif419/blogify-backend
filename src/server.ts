@@ -22,7 +22,6 @@ main();
 process.on('unhandledRejection', () => {
   if (server) {
     server.close(() => {
-      console.log(`😁 unhandledRejection is detected, shutting down ...`);
       process.exit(1);
     });
   }

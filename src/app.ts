@@ -15,7 +15,9 @@ app.use(cookieParser());
 // application routes
 app.use('/api', router);
 
-app.get('/', (req: Request, res: Response) => {});
+app.get('/', (req: Request, res: Response) => {
+  res.send("hello it's working");
+});
 
 app.use(globalErrorHandlers);
 app.use(notFound);
